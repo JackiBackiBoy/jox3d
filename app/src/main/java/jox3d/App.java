@@ -1,14 +1,9 @@
 package jox3d;
+import jox3d.sandbox.*;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
-
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
-
-        Window window = new Window(1240, 720, "3D Renderer");
+        RenderingWindow window = new RenderingWindow();
         window.run();
     }
 }

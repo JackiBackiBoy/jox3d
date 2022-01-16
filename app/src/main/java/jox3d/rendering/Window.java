@@ -1,4 +1,4 @@
-package jox3d;
+package jox3d.rendering;
 
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
@@ -52,8 +52,6 @@ public class Window {
     // Exit
     glfwFreeCallbacks(m_WindowID);
 		glfwDestroyWindow(m_WindowID);
-
-		// Terminate GLFW and free the error callback
 		glfwTerminate();
 		glfwSetErrorCallback(null).free();
   }
