@@ -1,7 +1,8 @@
 package jox3d.math;
 
 public class Matrix4x4 {
-  float[][] data = new float[4][4]; // column major [c][r]
+  private float[][] data = new float[4][4]; // column major ordering
+  public float[][] getData() { return data; }
 
   public Matrix4x4(float r1c1, float r1c2, float r1c3, float r1c4,
                    float r2c1, float r2c2, float r2c3, float r2c4,
@@ -30,5 +31,17 @@ public class Matrix4x4 {
                      data[3][1] = r2c4;
                      data[3][2] = r3c4;
                      data[3][3] = r4c4;
+  }
+
+  public float[] getFlatData() {
+    float[] flatData = new float[16];
+
+    for (var c = 0; c < 4; c++) {
+      for (var r = 0; r < 4; r++) {
+        flatData[c * 4 + r] = data[c][r];
+      }
+    }
+    
+    return flatData;
   }
 }

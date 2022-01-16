@@ -1,8 +1,8 @@
 package jox3d.sandbox;
+import jox3d.math.*;
 import jox3d.rendering.*;
 import java.nio.*;
 import static org.lwjgl.opengl.GL46.*;
-import static org.lwjgl.system.MemoryUtil.*;
 import org.lwjgl.system.*;
 
 public class RenderingWindow extends Window {
@@ -82,11 +82,18 @@ public class RenderingWindow extends Window {
 
   @Override
   public void onUpdate() {
+    Matrix4x4 matrix = new Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
+                                     0.0f, 1.0f, 0.0f, 0.0f,
+                                     0.0f, 0.0f, 1.0f, 0.0f,
+                                     0.0f, 0.0f, 0.0f, 1.0f);
 
+    lightingShader.setMatrix4x4("projMatrix", matrix);
   }
 
   @Override
   public void onRender() {
-
+    lightingShader.bind();
+    glBindVertexArray(vao);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
   }
 }

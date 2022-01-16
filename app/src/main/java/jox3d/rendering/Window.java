@@ -30,20 +30,30 @@ public class Window {
 
   public void onRender() {}
 
+  public void onExit() {}
+
   public void run() {
     initialize();
-    
-    GL.createCapabilities();
-		glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+
+    // Start
+    onStart();
 
     // Game loop
 		while ( !glfwWindowShouldClose(m_WindowID) ) {
+      // onUpdate
+      onUpdate();
+
+      // onRender
+      glClearColor(0.9f, 0.9f, 0.9f, 0.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear the framebuffer
+      onRender();
+
 			glfwSwapBuffers(m_WindowID);
 			glfwPollEvents();
 		}
 
     // Exit
+    onExit();
     glfwFreeCallbacks(m_WindowID);
 		glfwDestroyWindow(m_WindowID);
 		glfwTerminate();
@@ -100,5 +110,7 @@ public class Window {
 
 		// Make the window visible
 		glfwShowWindow(m_WindowID);
+
+    GL.createCapabilities();
   }
 }
