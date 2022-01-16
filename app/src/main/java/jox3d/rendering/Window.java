@@ -6,7 +6,7 @@ import org.lwjgl.system.*;
 
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL46.*;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
@@ -24,17 +24,11 @@ public class Window {
     m_Height = height;
   }
 
-  public void onStart() {
+  public void onStart() {}
 
-  }
+  public void onUpdate() {}
 
-  public void onUpdate() {
-
-  }
-
-  public void onRender() {
-    
-  }
+  public void onRender() {}
 
   public void run() {
     initialize();
@@ -65,8 +59,8 @@ public class Window {
 
 		// Configure GLFW
 		glfwDefaultWindowHints(); // optional, the current window hints are already the default
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 		glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // the window will stay hidden after creation
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // the window will be resizable
 
