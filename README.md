@@ -1,5 +1,4 @@
 # jox3d
-## Meaning of jox
-> Sak, grej, mojs, används ofta när man inte vet vad något heter.
+**Jox** - *"Swedish slang for a thing, object or some form of matter, often used when not knowing what the name of the object"*
 
-jox3d is a cross-platform hardware accelarated 3D graphics engine made in Java and OpenGL by Jack Henrikson.
+Jox3d is a cross-platform hardware accelarated 3D graphics engine made in Java and OpenGL by Jack Henrikson.
