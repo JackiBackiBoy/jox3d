@@ -1,8 +1,10 @@
-# Ignore Gradle project-specific cache directory
+# Gradle
 .gradle
-
-# Ignore Gradle build output directory
 build
 
-# Ignore Visual Studio code related folder
+# Visual Studio Code
 .vscode
+
+# MacOS
+**/.DS_Store
+
