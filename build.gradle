@@ -1,9 +1,9 @@
 import org.gradle.internal.os.OperatingSystem
 
 plugins {
-    // Apply the application plugin to add support for building a CLI application in Java.
-    id 'application'
-    id 'java'
+  // Apply the application plugin to add support for building a CLI application in Java.
+  id 'application'
+  id 'java'
 }
 
 sourceSets {
@@ -63,11 +63,11 @@ dependencies {
 
 
 repositories {
-    // Use Maven Central for resolving dependencies.
-    mavenCentral()
+  // Use Maven Central for resolving dependencies.
+  mavenCentral()
 }
 
 application {
-    // Define the main class for the application.
-    mainClass = 'jox3d.App'
+  // Define the main class for the application.
+  mainClass = 'jox3d.App'
 }

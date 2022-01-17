@@ -100,14 +100,6 @@ public class RenderingWindow extends Window {
 																				 0.0f, d,    0.0f, 0.0f,
 																				 0.0f, 0.0f, a,    b,
 																				 0.0f, 0.0f, 1.0f, 0.0f);
-		if (t == 0.0f)
-			System.out.println(translMatrix.toString());
-
-
-		translMatrix = Matrix4x4.rotateY(translMatrix, t);
-
-		if (t == 0.0f)
-			System.out.println(translMatrix.toString());
 
     lightingShader.setMatrix4x4("projMatrix", Matrix4x4.multiply(projMatrix, translMatrix));
   }
