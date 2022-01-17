@@ -9,6 +9,6 @@ Jox3d is a cross-platform hardware accelerated 3D graphics engine made in Java a
 - :penguin: Linux arm32
 - :apple: macOS x64
 - :apple: macOS arm64
-- Windows x64
-- Windows x86
-- Windows arm64
+- :window: Windows x64
+- :window: Windows x86
+- :window: Windows arm64
