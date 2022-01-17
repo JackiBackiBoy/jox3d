@@ -18,7 +18,7 @@ public class Shader {
   public void loadShader(ShaderType shaderType, String filePath) {
     // Check if file extension is valid for the given shader file, else ignore loading the shader
     try {
-      File shaderFile = new File("C:/Code/Java/jox3d/" + filePath);
+      File shaderFile = new File(filePath).getAbsoluteFile();
       Scanner fileReader = new Scanner(shaderFile);
       String fileContents = "";
 
