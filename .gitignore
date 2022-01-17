@@ -8,3 +8,5 @@ build
 # MacOS
 **/.DS_Store
 
+# Binaries
+bin
