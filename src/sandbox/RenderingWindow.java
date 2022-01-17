@@ -90,6 +90,9 @@ public class RenderingWindow extends Window {
                                      0.0f, 1.0f, 0.0f, 0.0f,
                                      0.0f, 0.0f, 1.0f, 4.0f,
                                      0.0f, 0.0f, 0.0f, 1.0f);
+
+    translMatrix = Matrix4x4.rotateY(translMatrix, t);
+
     float nearZ = 0.8f;
     float farZ = 100.0f;
     float a = (-farZ - nearZ) / (nearZ - farZ);
