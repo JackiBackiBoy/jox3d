@@ -17,8 +17,6 @@ sourceSets {
   }
 }
 
-applicationDefaultJvmArgs = ["-XstartOnFirstThread"]
-
 // LWJGL specific configuration
 project.ext.lwjglVersion = "3.3.0"
 
@@ -31,6 +29,7 @@ switch (OperatingSystem.current()) {
     break
   case OperatingSystem.MAC_OS:
     project.ext.lwjglNatives = System.getProperty("os.arch").startsWith("aarch64") ? "natives-macos-arm64" : "natives-macos"
+    applicationDefaultJvmArgs = ["-XstartOnFirstThread"] // specifc JVM argument for macOS
     break
   case OperatingSystem.WINDOWS:
     def osArch = System.getProperty("os.arch")
