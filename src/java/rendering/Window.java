@@ -23,10 +23,14 @@ public class Window {
     m_Width = width;
     m_Height = height;
   }
+	
+	public float getAspectRatio() {
+		return (float)m_Width / m_Height;
+	}
 
   public void onStart() {}
 
-  public void onUpdate() {}
+  public void onUpdate(final float deltaTime) {}
 
   public void onRender() {}
 
@@ -35,13 +39,17 @@ public class Window {
   public void run() {
     initialize();
 
+		float deltaTime = 0.0f;
+
     // Start
     onStart();
 
     // Game loop
 		while ( !glfwWindowShouldClose(m_WindowID) ) {
+			double t0 = glfwGetTime();
+
       // onUpdate
-      onUpdate();
+      onUpdate(deltaTime);
 
       // onRender
       glClearColor(0.9f, 0.9f, 0.9f, 0.0f);
@@ -50,6 +58,8 @@ public class Window {
 
 			glfwSwapBuffers(m_WindowID);
 			glfwPollEvents();
+
+			deltaTime = (float)(glfwGetTime() - t0);
 		}
 
     // Exit

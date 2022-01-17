@@ -1,8 +1,10 @@
 package jox3d.math;
 
 public class Matrix4x4 {
-  private float[][] data = new float[4][4]; // column major ordering
+  public float[][] data = new float[4][4]; // column major ordering
   public float[][] getData() { return data; }
+
+	public Matrix4x4(float[][] data) { this.data = data; }
 
   public Matrix4x4(float r1c1, float r1c2, float r1c3, float r1c4,
                    float r2c1, float r2c2, float r2c3, float r2c4,
@@ -32,6 +34,52 @@ public class Matrix4x4 {
                      data[3][2] = r3c4;
                      data[3][3] = r4c4;
   }
+
+	public static void rotateX(Matrix4x4 inputMatrix, float radians) {
+		Matrix4x4 rotX = new Matrix4x4(1, 0, 0, 0,
+																	 0, (float)Math.cos(radians), -(float)Math.sin(radians), 0,
+																	 0, (float)Math.sin(radians), (float)Math.cos(radians), 0,
+																	 0, 0, 0, 0);
+
+		inputMatrix = multiply(inputMatrix, rotX);
+	}
+
+	public static Matrix4x4 rotateY(Matrix4x4 inputMatrix, float radians) {
+		Matrix4x4 rotY = new Matrix4x4((float)Math.cos(radians), 0, (float)Math.sin(radians), 0,
+																	 0, 1, 0, 0,
+																	 -(float)Math.sin(radians), 0, (float)Math.cos(radians), 0,
+																	 0, 0, 0, 1);
+
+		return multiply(inputMatrix, rotY);
+	}
+
+	public String toString() {
+		String matrixString = "";
+
+		for	(var r = 0; r < 4; r++) {
+			for (var c = 0; c < 4; c++) {
+				matrixString += String.valueOf(data[c][r]) + ", ";	
+			}
+
+			matrixString += "\n";
+		}
+
+		return matrixString;
+	}
+	
+	public static Matrix4x4 multiply(Matrix4x4 matrixA, Matrix4x4 matrixB) {
+		float[][] newData = new float[4][4];
+
+		for (var r = 0; r < 4; r++) {
+			for (var c = 0; c < 4; c++) {
+				for (var i = 0; i < 4; i++) {
+					newData[c][r] += matrixA.data[i][r] * matrixB.data[c][i];
+				}
+			}
+		}
+
+		return new Matrix4x4(newData);
+	}
 
   public float[] getFlatData() {
     float[] flatData = new float[16];

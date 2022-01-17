@@ -80,14 +80,36 @@ public class RenderingWindow extends Window {
     lightingShader.setFloat("color", 0.5f);
   }
 
-  @Override
-  public void onUpdate() {
-    Matrix4x4 matrix = new Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
-                                     0.0f, 1.0f, 0.0f, 0.0f,
-                                     0.0f, 0.0f, 1.0f, 0.0f,
-                                     0.0f, 0.0f, 0.0f, 1.0f);
+	float t = 0.0f;
 
-    lightingShader.setMatrix4x4("projMatrix", matrix);
+  @Override
+  public void onUpdate(final float deltaTime) {
+		t += deltaTime;
+
+    Matrix4x4 translMatrix = new Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
+                                     0.0f, 1.0f, 0.0f, 0.0f,
+                                     0.0f, 0.0f, 1.0f, 4.0f,
+                                     0.0f, 0.0f, 0.0f, 1.0f);
+		float nearZ = 0.8f;
+    float farZ = 100.0f;
+    float a = (-farZ - nearZ) / (nearZ - farZ);
+    float b = (2 * farZ * nearZ) / (nearZ - farZ);
+
+    float d = 1.0f / (float)Math.tan(Math.PI / 4);
+    Matrix4x4 projMatrix = new Matrix4x4(d / getAspectRatio(), 0.0f, 0.0f, 0.0f,
+																				 0.0f, d,    0.0f, 0.0f,
+																				 0.0f, 0.0f, a,    b,
+																				 0.0f, 0.0f, 1.0f, 0.0f);
+		if (t == 0.0f)
+			System.out.println(translMatrix.toString());
+
+
+		translMatrix = Matrix4x4.rotateY(translMatrix, t);
+
+		if (t == 0.0f)
+			System.out.println(translMatrix.toString());
+
+    lightingShader.setMatrix4x4("projMatrix", Matrix4x4.multiply(projMatrix, translMatrix));
   }
 
   @Override
