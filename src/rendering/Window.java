@@ -40,6 +40,7 @@ public class Window {
     initialize();
 
     float deltaTime = 0.0f;
+    glEnable(GL_DEPTH_TEST);
 
     // Start
     onStart();

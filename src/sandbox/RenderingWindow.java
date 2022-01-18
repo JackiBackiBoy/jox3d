@@ -44,7 +44,7 @@ public class RenderingWindow extends Window {
     lightingShader.loadShader(ShaderType.Vertex, "assets/shaders/lighting_shader.vert");
     lightingShader.loadShader(ShaderType.Fragment, "assets/shaders/lighting_shader.frag");
     lightingShader.createProgram();
-    lightingShader.setFloat("color", 0.5f);
+    lightingShader.setVec3("color", new Vector3D(0.5f, 0.9f, 1.0f));
   }
 
   float t = 0.0f;

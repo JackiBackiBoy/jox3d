@@ -52,6 +52,11 @@ public class Shader {
     glUniform1f(glGetUniformLocation(m_ID, uniformName), value);
   }
 
+  public void setVec3(String uniformName, Vector3D vector) {
+    bind();
+    glUniform3f(glGetUniformLocation(m_ID, uniformName), vector.x, vector.y, vector.z);
+  }
+
   public void setMatrix4x4(String uniformName, Matrix4x4 value) {
     bind();
     glUniformMatrix4fv(glGetUniformLocation(m_ID, uniformName), false, value.getFlatData());
