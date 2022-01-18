@@ -2,8 +2,8 @@ package jox3d.sandbox;
 import jox3d.math.*;
 import jox3d.rendering.*;
 import java.nio.*;
-import static org.lwjgl.opengl.GL41.*;
 import org.lwjgl.system.*;
+import static org.lwjgl.opengl.GL41.*;
 
 public class RenderingWindow extends Window {
   int vao = 0;                              
