@@ -57,8 +57,10 @@ public class RenderingWindow extends Window {
                                      0.0f, 1.0f, 0.0f, 0.0f,
                                      0.0f, 0.0f, 1.0f, 4.0f,
                                      0.0f, 0.0f, 0.0f, 1.0f);
-
-    translMatrix = Matrix4x4.rotateY(translMatrix, t);
+    
+    Matrix4x4 rotationMatrix = Matrix4x4.rotateX(Matrix4x4.identity, t);
+    rotationMatrix = Matrix4x4.rotateY(rotationMatrix, t);
+    translMatrix = Matrix4x4.multiply(translMatrix, rotationMatrix);
 
     float nearZ = 0.8f;
     float farZ = 100.0f;

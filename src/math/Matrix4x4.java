@@ -35,13 +35,13 @@ public class Matrix4x4 {
                      data[3][3] = r4c4;
   }
 
-  public static void rotateX(Matrix4x4 inputMatrix, float radians) {
+  public static Matrix4x4 rotateX(Matrix4x4 inputMatrix, float radians) {
     Matrix4x4 rotX = new Matrix4x4(1, 0, 0, 0,
                                    0, (float)Math.cos(radians), -(float)Math.sin(radians), 0,
                                    0, (float)Math.sin(radians), (float)Math.cos(radians), 0,
-                                   0, 0, 0, 0);
+                                   0, 0, 0, 1);
 
-    inputMatrix = multiply(inputMatrix, rotX);
+    return multiply(inputMatrix, rotX);
   }
 
   public static Matrix4x4 rotateY(Matrix4x4 inputMatrix, float radians) {
@@ -92,4 +92,9 @@ public class Matrix4x4 {
     
     return flatData;
   }
+
+  public static Matrix4x4 identity = new Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
+                                                   0.0f, 1.0f, 0.0f, 0.0f,
+                                                   0.0f, 0.0f, 1.0f, 0.0f,
+                                                   0.0f, 0.0f, 0.0f, 1.0f);
 }
