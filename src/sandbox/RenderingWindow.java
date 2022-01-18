@@ -31,10 +31,15 @@ public class RenderingWindow extends Window {
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, verticesBuffer, GL_STATIC_DRAW);
 
-    // Vertex attributes
-    glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0); // positions (x, y, z)
+    // --- Vertex attributes ---
+    // Positions (x, y, z)
+    glVertexAttribPointer(0, 3, GL_FLOAT, false, 6 * Float.BYTES, 0);
     glEnableVertexAttribArray(0);
-    
+
+    // Normals (x, y, z) 
+    glVertexAttribPointer(1, 3, GL_FLOAT, false, 6 * Float.BYTES, 3 * Float.BYTES);
+    glEnableVertexAttribArray(1);
+
     // Load assets
     lightingShader.loadShader(ShaderType.Vertex, "assets/shaders/lighting_shader.vert");
     lightingShader.loadShader(ShaderType.Fragment, "assets/shaders/lighting_shader.frag");

@@ -43,20 +43,27 @@ public class Mesh {
             normal.y = Float.parseFloat(formattedData[2]);
             normal.z = Float.parseFloat(formattedData[3]);
 
-            //m_Normals.add(m_Normals);
+            m_Normals.add(normal);
           }
         }
         // Assemble faces from position and normal data
         else if (currentLine.charAt(0) == 'f') {
           Vector3D position = new Vector3D(0.0f, 0.0f, 0.0f);
+          Vector3D normal = new Vector3D(0.0f, 0.0f, 0.0f);
 
           // TODO: Make this method more efficient
           for (var i = 1; i < formattedData.length; i++) {
+            // Position data from face indices
             position.x = m_Positions.get(Integer.parseInt(formattedData[i].split("/")[0]) - 1).x;
             position.y = m_Positions.get(Integer.parseInt(formattedData[i].split("/")[0]) - 1).y;
             position.z = m_Positions.get(Integer.parseInt(formattedData[i].split("/")[0]) - 1).z;
 
-            Collections.addAll(m_Vertices, position.x, position.y, position.z); 
+            normal.x = m_Normals.get(Integer.parseInt(formattedData[i].split("/")[2]) - 1).x;
+            normal.y = m_Normals.get(Integer.parseInt(formattedData[i].split("/")[2]) - 1).y;
+            normal.z = m_Normals.get(Integer.parseInt(formattedData[i].split("/")[2]) - 1).z;
+
+            Collections.addAll(m_Vertices, position.x, position.y, position.z,
+                                           normal.x, normal.y, normal.z); 
           }
         }
       }
