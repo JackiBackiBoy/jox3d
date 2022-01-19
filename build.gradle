@@ -9,7 +9,7 @@ plugins {
 sourceSets {
   main {
     java {
-      srcDir 'src'
+      srcDir 'src/main/java'
     }
     resources {
       srcDir 'src/resources'
