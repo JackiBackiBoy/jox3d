@@ -61,7 +61,15 @@ public class RenderingWindow extends Window {
       camera.position.y += 5.0f * deltaTime;
     if (Keyboard.isKeyDown(KeyCode.LeftControl))
       camera.position.y -= 5.0f * deltaTime;
-    
+
+    // Forwards and backwards
+    if (Keyboard.isKeyDown(KeyCode.W))
+      camera.position = Vector3D.add(camera.position,
+                                     Vector3D.multiply(5.0f * deltaTime, camera.getForward()));
+    if (Keyboard.isKeyDown(KeyCode.S))
+      camera.position = Vector3D.add(camera.position,
+                                     Vector3D.multiply(-5.0f * deltaTime, camera.getForward()));
+
     // Horizontal movement
     if (Keyboard.isKeyDown(KeyCode.D)) 
       camera.position = Vector3D.add(camera.position,
@@ -70,6 +78,13 @@ public class RenderingWindow extends Window {
     if (Keyboard.isKeyDown(KeyCode.A)) 
       camera.position = Vector3D.add(camera.position,
                                      Vector3D.multiply(-5.0f * deltaTime, camera.getRight()));
+
+    // Rotations
+    if (Keyboard.isKeyDown(KeyCode.Q))
+      camera.yaw += 5.0f * deltaTime;
+    if (Keyboard.isKeyDown(KeyCode.E))
+      camera.yaw -= 5.0f * deltaTime;
+
     t += deltaTime;
 
     Matrix4x4 translMatrix = new Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
@@ -77,10 +92,10 @@ public class RenderingWindow extends Window {
                                            0.0f, 0.0f, 1.0f, 4.0f,
                                            0.0f, 0.0f, 0.0f, 1.0f);
     // Rotation matrix 
-    Matrix4x4 rotationMatrix = Matrix4x4.rotateY(Matrix4x4.identity, t);
+    Matrix4x4 rotationMatrix = Matrix4x4.identity;
 
     // World matrix
-    Matrix4x4 worldMatrix = Matrix4x4.multiply(translMatrix, rotationMatrix);
+    Matrix4x4 worldMatrix = translMatrix;
 
     // View matrix
     Matrix4x4 viewMatrix = camera.getViewMatrix();

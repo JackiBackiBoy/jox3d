@@ -12,12 +12,20 @@ public class Vector3D {
     this.z = z;
   }
 
+  public float length() { return (float)Math.sqrt(x * x + y * y + z * z); }
+
   public static Vector3D multiply(float factor, Vector3D vector) {
     return new Vector3D(factor * vector.x, factor * vector.y, factor * vector.z);
   }
 
   public static Vector3D add(Vector3D a, Vector3D b) {
     return new Vector3D(a.x + b.x, a.y + b.y, a.z + b.z);
+  }
+
+  public static Vector3D normalize(Vector3D vector) {
+    float length = vector.length();
+
+    return new Vector3D(vector.x / length, vector.y / length, vector.z / length);
   }
 
   public static Vector3D cross(Vector3D a, Vector3D b) {
