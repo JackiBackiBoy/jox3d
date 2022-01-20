@@ -6,7 +6,7 @@ public class Camera {
 
   // Euler angles
   public float pitch = 0.0f;
-  public float yaw = 0.0f;
+  public float yaw = (float)Math.PI / 2;
   public float roll = 0.0f;
 
   // UVN rotation vectors
@@ -17,6 +17,14 @@ public class Camera {
   public Vector3D getRight() { return right; }
 
   public Matrix4x4 getViewMatrix() {
+    forward = new Vector3D((float)(Math.cos(pitch) * Math.cos(yaw)),
+                           (float)Math.sin(pitch),
+                           (float)(Math.cos(pitch) * Math.sin(yaw)));
+
+    // Trick for computing right and up vectors
+    right = Vector3D.cross(Vector3D.up, forward);
+    up = Vector3D.cross(forward, right);
+
     return new Matrix4x4(right.x, right.y, right.z, -position.x,
                          up.x, up.y, up.z, -position.y,
                          forward.x, forward.y, forward.z, -position.z,

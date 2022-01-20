@@ -19,4 +19,12 @@ public class Vector3D {
   public static Vector3D add(Vector3D a, Vector3D b) {
     return new Vector3D(a.x + b.x, a.y + b.y, a.z + b.z);
   }
+
+  public static Vector3D cross(Vector3D a, Vector3D b) {
+    return new Vector3D(a.y * b.z - a.z * b.y,
+                        a.z * b.x - a.x * b.z,
+                        a.x * b.y - a.y * b.x);
+  }
+
+  public static Vector3D up = new Vector3D(0.0f, 1.0f, 0.0f);
 }
