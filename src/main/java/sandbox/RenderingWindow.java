@@ -1,15 +1,19 @@
 package jox3d.sandbox;
+import static org.lwjgl.opengl.GL41.*;
 import jox3d.math.*;
 import jox3d.rendering.*;
+import jox3d.components.*;
+import jox3d.input.*;
+
 import java.nio.*;
 import org.lwjgl.system.*;
-import static org.lwjgl.opengl.GL41.*;
 
 public class RenderingWindow extends Window {
   int vao = 0;                              
   int vbo = 0;
   Shader lightingShader = new Shader();
   Mesh cube = new Mesh();
+  Camera camera = new Camera(new Vector3D(0, 0, 0));
 
   public RenderingWindow() {
     super(1240, 720, "Rendering Window");
@@ -51,17 +55,37 @@ public class RenderingWindow extends Window {
 
   @Override
   public void onUpdate(final float deltaTime) {
+    // --- Camera controller ---
+    // Vertical movement
+    if (Keyboard.isKeyDown(KeyCode.Space))
+      camera.position.y += 5.0f * deltaTime;
+    if (Keyboard.isKeyDown(KeyCode.LeftControl))
+      camera.position.y -= 5.0f * deltaTime;
+    
+    // Horizontal movement
+    if (Keyboard.isKeyDown(KeyCode.D)) 
+      camera.position = Vector3D.add(camera.position,
+                                     Vector3D.multiply(5.0f * deltaTime, camera.getRight()));
+
+    if (Keyboard.isKeyDown(KeyCode.A)) 
+      camera.position = Vector3D.add(camera.position,
+                                     Vector3D.multiply(-5.0f * deltaTime, camera.getRight()));
     t += deltaTime;
 
     Matrix4x4 translMatrix = new Matrix4x4(1.0f, 0.0f, 0.0f, 0.0f,
-                                     0.0f, 1.0f, 0.0f, 0.0f,
-                                     0.0f, 0.0f, 1.0f, 4.0f,
-                                     0.0f, 0.0f, 0.0f, 1.0f);
-    
-    Matrix4x4 rotationMatrix = Matrix4x4.rotateX(Matrix4x4.identity, t);
-    rotationMatrix = Matrix4x4.rotateY(rotationMatrix, t);
-    translMatrix = Matrix4x4.multiply(translMatrix, rotationMatrix);
+                                           0.0f, 1.0f, 0.0f, 0.0f,
+                                           0.0f, 0.0f, 1.0f, 4.0f,
+                                           0.0f, 0.0f, 0.0f, 1.0f);
+    // Rotation matrix 
+    Matrix4x4 rotationMatrix = Matrix4x4.rotateY(Matrix4x4.identity, t);
 
+    // World matrix
+    Matrix4x4 worldMatrix = Matrix4x4.multiply(translMatrix, rotationMatrix);
+
+    // View matrix
+    Matrix4x4 viewMatrix = camera.getViewMatrix();
+
+    // Projection matrix
     float nearZ = 0.8f;
     float farZ = 100.0f;
     float a = (-farZ - nearZ) / (nearZ - farZ);
@@ -72,8 +96,10 @@ public class RenderingWindow extends Window {
                                          0.0f, d,    0.0f, 0.0f,
                                          0.0f, 0.0f, a,    b,
                                          0.0f, 0.0f, 1.0f, 0.0f);
+    // Combine projection, view and world
+    Matrix4x4 pvm = Matrix4x4.multiply(projMatrix, Matrix4x4.multiply(viewMatrix, worldMatrix));
 
-    lightingShader.setMatrix4x4("projMatrix", Matrix4x4.multiply(projMatrix, translMatrix));
+    lightingShader.setMatrix4x4("projMatrix", pvm);
   }
 
   @Override

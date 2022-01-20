@@ -24,6 +24,8 @@ public class Window {
     m_Height = height;
   }
   
+  public long getWindowID() { return m_WindowID; }
+
   public float getAspectRatio() {
     return (float)m_Width / m_Height;
   }

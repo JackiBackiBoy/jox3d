@@ -11,4 +11,12 @@ public class Vector3D {
     this.y = y;
     this.z = z;
   }
+
+  public static Vector3D multiply(float factor, Vector3D vector) {
+    return new Vector3D(factor * vector.x, factor * vector.y, factor * vector.z);
+  }
+
+  public static Vector3D add(Vector3D a, Vector3D b) {
+    return new Vector3D(a.x + b.x, a.y + b.y, a.z + b.z);
+  }
 }
