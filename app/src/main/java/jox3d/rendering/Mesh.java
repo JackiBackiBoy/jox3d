@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.nio.FloatBuffer;
 
 public class Mesh {
   private ArrayList<Vector3D> m_Positions = new ArrayList<Vector3D>();
@@ -67,6 +66,8 @@ public class Mesh {
           }
         }
       }
+
+      fileReader.close();
       
       m_VertexData = new float[m_Vertices.size()];
 

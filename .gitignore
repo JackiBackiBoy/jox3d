@@ -2,6 +2,12 @@
 .gradle
 build
 
+# Metals
+.metals
+.bloop
+**/.settings
+**/.project
+
 # Visual Studio Code
 .vscode
 

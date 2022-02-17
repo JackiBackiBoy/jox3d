@@ -6,17 +6,6 @@ plugins {
   id 'java'
 }
 
-sourceSets {
-  main {
-    java {
-      srcDir 'src/main/java'
-    }
-    resources {
-      srcDir 'src/resources'
-    }
-  }
-}
-
 // LWJGL specific configuration
 project.ext.lwjglVersion = "3.3.0"
 

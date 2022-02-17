@@ -14,6 +14,7 @@ public class RenderingWindow extends Window {
   Shader lightingShader = new Shader();
   Mesh cube = new Mesh();
   Camera camera = new Camera(new Vector3D(0, 0, 0));
+  Vector2D lastMousePos = null;
 
   public RenderingWindow() {
     super(1240, 720, "Rendering Window");
@@ -56,6 +57,27 @@ public class RenderingWindow extends Window {
   @Override
   public void onUpdate(final float deltaTime) {
     // --- Camera controller ---
+    Vector2D mousePos = Mouse.getPosition();
+
+    if (lastMousePos == null)
+      lastMousePos = mousePos;
+    
+    Vector2D deltaMousePos = Vector2D.subtract(mousePos, lastMousePos);
+
+    // Mouse rotations
+    if (true) {
+      if (deltaMousePos.x != 0.0f) {
+        camera.position = Vector3D.add(camera.position,
+                                       Vector3D.multiply(-deltaMousePos.x * deltaTime,
+                                                         camera.getRight()));
+      }
+      if (deltaMousePos.y != 0.0f) {
+        camera.position = Vector3D.add(camera.position,
+                                       Vector3D.multiply(-deltaMousePos.y * deltaTime,
+                                                         camera.getUp()));
+      }
+    }
+
     // Vertical movement
     if (Keyboard.isKeyDown(KeyCode.Space))
       camera.position.y += 5.0f * deltaTime;
@@ -79,11 +101,7 @@ public class RenderingWindow extends Window {
       camera.position = Vector3D.add(camera.position,
                                      Vector3D.multiply(-5.0f * deltaTime, camera.getRight()));
 
-    // Rotations
-    if (Keyboard.isKeyDown(KeyCode.Q))
-      camera.yaw += 5.0f * deltaTime;
-    if (Keyboard.isKeyDown(KeyCode.E))
-      camera.yaw -= 5.0f * deltaTime;
+    lastMousePos = mousePos;
 
     t += deltaTime;
 
@@ -91,9 +109,6 @@ public class RenderingWindow extends Window {
                                            0.0f, 1.0f, 0.0f, 0.0f,
                                            0.0f, 0.0f, 1.0f, 4.0f,
                                            0.0f, 0.0f, 0.0f, 1.0f);
-    // Rotation matrix 
-    Matrix4x4 rotationMatrix = Matrix4x4.identity;
-
     // World matrix
     Matrix4x4 worldMatrix = translMatrix;
 
